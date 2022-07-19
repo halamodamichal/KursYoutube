@@ -1,6 +1,7 @@
 package Kurs;
 
 import Kurs.drive.Drive;
+import Kurs.usbdevice.USBDevice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class Computer {
     private Drive drive;
     private Headphones headphones;
 
-    List<USBDevice> usbDevice = new ArrayList<>();
+    private List<USBDevice> usbDevices = new ArrayList<>();
 
     public Computer(Monitor monitor, Drive drive) {
 
@@ -43,6 +44,20 @@ public class Computer {
     }
 
     public List<USBDevice> getUsbDevice() {
-        return usbDevice;
+        return usbDevices;
+    }
+    public void addUSBDevice(USBDevice usbDevice) {
+        boolean isConnected = usbDevice.connect();
+
+        if (isConnected) {
+            usbDevices.add(usbDevice);
+        }
+    }
+    public void removeUSBDeivce(USBDevice usbDevice) {
+        boolean isDisconnected = usbDevice.disconnect();
+        if (isDisconnected) {
+            usbDevices.remove(usbDevice);
+        }
+
     }
 }
